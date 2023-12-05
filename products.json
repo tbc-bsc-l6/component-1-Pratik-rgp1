@@ -16,5 +16,14 @@
     "mainname": "Georgia",
     "price": 8.5,
     "playlength": 45
+  },
+  {
+    "id": 3,
+    "type": "game",
+    "title": "GTA Vice",
+    "firstname": "",
+    "mainname": "City",
+    "price": 86.5,
+    "numpegis": 10
   }
 ]

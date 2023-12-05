@@ -24,6 +24,12 @@ class JsonUtility
                         $product['mainname'],$product['price'], $product['numpages']);
                     $products[]=$bookproduct;
                     break;
+                case "game":
+                    $gameproduct = new \awe\GameProduct($product['id'],$product['title'], $product['firstname'],
+                    $product['mainname'],$product['price'], $product['numpegis']);
+                    $products[]=$gameproduct;
+                
+                        break;
             }
         }
         return $products;
@@ -47,21 +53,21 @@ class JsonUtility
     public static function addNewProduct(string $file, string $producttype, string $fname, string $sname, string $title, int $pages, float $price)
     {
         $string = file_get_contents($file);
-
+    
         $productsJson = json_decode($string, true);
-
+    
         $ids = [];
         foreach ($productsJson as $product) {
              $ids[] = $product['id'];
         }
         rsort($ids);
         $newId = $ids[0] + 1;
-
+    
         $products = [];
         foreach ($productsJson as $product) {
             $products[] = $product;
         }
-
+    
         $newProduct = [];
         $newProduct['id'] = $newId;
         $newProduct['type'] = $producttype;
@@ -69,13 +75,15 @@ class JsonUtility
         $newProduct['firstname'] = $fname;
         $newProduct['mainname'] = $sname;
         $newProduct['price'] = $price;
-
+    
         if($producttype=='cd') $newProduct['playlength'] = $pages;
         if($producttype=='book') $newProduct['numpages'] = $pages;
-
+        if($producttype=='game') $newProduct['numpegis'] = $pages;
+    
         $products[] = $newProduct;
-
+    
         $json = json_encode($products);
         file_put_contents($file, $json);
     }
+    
 }
